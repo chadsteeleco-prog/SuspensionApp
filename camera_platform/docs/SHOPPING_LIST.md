@@ -15,22 +15,30 @@
 
 ## Additional Components Needed
 
-### 1. G-Force Sensor
-| Item | Specs | Cost | Link |
-|------|-------|------|------|
-| **Adafruit ADXL345 Triple-Axis Accelerometer** | ±2/4/8/16g, I2C/SPI, 13-bit | $14.95 | [Adafruit #1231](https://www.adafruit.com/product/1231) |
+### 1. Orientation Sensor
 
-**Why this sensor:**
-- Industry-standard, proven reliability
-- Open-source, non-proprietary
-- Perfect range (±8g) for camera platform
-- Excellent documentation and support
-- Low power consumption (40µA)
-- High resolution (13-bit, 4mg/LSB)
+| Item | Specs | Cost | Link | Recommendation |
+|------|-------|------|------|----------------|
+| **Adafruit BNO055 9-DOF IMU** ⭐ | 9-axis, absolute orientation, sensor fusion | $34.95 | [Adafruit #2472](https://www.adafruit.com/product/2472) | **HIGHLY RECOMMENDED** |
+| Adafruit ADXL345 | 3-axis accelerometer, ±16g | $14.95 | [Adafruit #1231](https://www.adafruit.com/product/1231) | Budget option |
 
-**Alternatives (if out of stock):**
-- SparkFun ADXL345: [SparkFun SEN-09836](https://www.sparkfun.com/products/9836)
-- Generic ADXL345 breakout: Amazon/eBay (~$5-10)
+**Recommendation: BNO055 ($34.95)** ⭐
+
+**Why BNO055 is worth the extra $20:**
+- ✅ **9-axis sensor** (accel + gyro + magnetometer) vs 3-axis
+- ✅ **Absolute orientation** - No drift over time
+- ✅ **Built-in sensor fusion** - Less CPU load on Raspberry Pi
+- ✅ **Automatic calibration** - Self-calibrating system
+- ✅ **Better accuracy** - ±1° absolute vs ±0.5° relative
+- ✅ **Quaternion output** - Professional-grade orientation
+- ✅ **Magnetometer** - True heading/compass capability
+- ✅ **Self-correcting** - Reliable long-term operation
+
+**Use Cases:**
+- **BNO055:** Professional camera platform, time-lapse, motion stabilization
+- **ADXL345:** Budget builds, basic tilt sensing, high-speed sampling
+
+**Verdict:** The BNO055's extra $20 is **absolutely worth it** for this application. It's the sensor used in professional drones, VR systems, and robotics.
 
 ---
 
@@ -106,26 +114,26 @@
 
 ## Cost Summary
 
-### Minimum Required (Already Have Core System)
+### Recommended Configuration (BNO055)
 | Category | Cost |
 |----------|------|
-| ADXL345 Sensor | $15 |
+| **BNO055 Sensor** ⭐ | $35 |
 | UPS Power (PowerBoost + Battery) | $35 |
 | Servo Battery Pack | $30 |
 | Battery Charger | $25 |
 | Cables & Connectors | $30 |
 | Mounting Hardware | $15 |
-| **Subtotal** | **$150** |
+| **Subtotal** | **$170** |
 
-### Recommended (with Optional Items)
+### With Optional Items
 | Category | Cost |
 |----------|------|
-| Minimum Required | $150 |
+| Recommended Configuration | $170 |
 | MicroSD Card | $15 |
 | Tools & Accessories | $50 |
-| **Total** | **$215** |
+| **Total** | **$235** |
 
-### Budget Option (Minimal)
+### Budget Option (ADXL345)
 | Category | Cost |
 |----------|------|
 | ADXL345 Sensor | $15 |
@@ -134,6 +142,8 @@
 | Basic Cables | $15 |
 | Foam Tape | $5 |
 | **Total** | **$75** |
+
+**Note:** Budget option sacrifices absolute orientation, sensor fusion, and magnetometer. Recommended for professional results: **BNO055 configuration ($170-235)**
 
 ---
 
