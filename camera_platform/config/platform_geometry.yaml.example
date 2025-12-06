@@ -1,0 +1,64 @@
+# Stewart Platform Geometry Configuration
+# Copy this file to platform_geometry.yaml and adjust values for your build
+
+measurements:
+  # Base mounting circle radius (mm)
+  # Measure from platform center to servo pivot point
+  base_radius: 150.0
+  
+  # Platform mounting circle radius (mm)
+  # Measure from platform center to rod attachment point
+  platform_radius: 80.0
+  
+  # Servo arm length (mm)
+  # Length of servo horn from pivot to rod attachment
+  servo_arm_length: 25.0
+  
+  # Connecting rod length (mm)
+  # Length of rod connecting servo arm to platform
+  rod_length: 200.0
+  
+  # Home height (mm)
+  # Platform height above base when at neutral position
+  home_height: 180.0
+
+# Servo mounting angles (degrees from X-axis)
+# Measure clockwise from front (0°)
+servo_angles:
+  - 0      # Servo 0 - Front
+  - 60     # Servo 1 - Front-right
+  - 120    # Servo 2 - Back-right
+  - 180    # Servo 3 - Back
+  - 240    # Servo 4 - Back-left
+  - 300    # Servo 5 - Front-left
+
+# Platform attachment angles (degrees from X-axis)
+# Typically offset from servo angles by 30°
+platform_angles:
+  - 30     # Attachment 0
+  - 90     # Attachment 1
+  - 150    # Attachment 2
+  - 210    # Attachment 3
+  - 270    # Attachment 4
+  - 330    # Attachment 5
+
+# Motion limits (safety constraints)
+limits:
+  x_min: -30.0      # mm
+  x_max: 30.0       # mm
+  y_min: -30.0      # mm
+  y_max: 30.0       # mm
+  z_min: -20.0      # mm
+  z_max: 40.0       # mm
+  roll_min: -25.0   # degrees
+  roll_max: 25.0    # degrees
+  pitch_min: -25.0  # degrees
+  pitch_max: 25.0   # degrees
+  yaw_min: -30.0    # degrees
+  yaw_max: 30.0     # degrees
+
+# Speed limits
+speed:
+  max_translation: 50.0  # mm/s
+  max_rotation: 30.0     # deg/s
+  max_acceleration: 100.0  # mm/s²
