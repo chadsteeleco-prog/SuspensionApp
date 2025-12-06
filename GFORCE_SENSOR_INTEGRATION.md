@@ -8,22 +8,39 @@ Adding a 3-axis G-force sensor to the camera platform provides real-time spatial
 
 ## Hardware Addition
 
-### Spektrum Aircraft Telemetry 3-Axis G-Force Sensor (8G)
+### Adafruit ADXL345 Triple-Axis Accelerometer
+
+**Product Link:** https://www.adafruit.com/product/1231
 
 **Specifications:**
-- **Range:** ±8G on all three axes
-- **Resolution:** 0.01G
-- **Update Rate:** 100Hz typical
-- **Interface:** I2C or Serial (depending on model)
-- **Operating Voltage:** 3.3V - 5V
-- **Dimensions:** Compact, lightweight
-- **Mounting:** Adhesive or screw mount
+- **Sensor:** ADXL345 (Analog Devices)
+- **Range:** ±2g, ±4g, ±8g, ±16g (selectable)
+- **Resolution:** 13-bit (up to 4mg/LSB)
+- **Interface:** I2C or SPI
+- **I2C Address:** 0x53 (default) or 0x1D (alternate)
+- **Supply Voltage:** 2.0V - 3.6V (3.3V recommended)
+- **Logic Voltage:** 3.3V or 5V compatible
+- **Current Draw:** 40µA @ 2.5V (measurement mode)
+- **Update Rate:** Up to 3200 Hz
+- **Dimensions:** 0.8" x 0.6" (20mm x 15mm)
+- **Weight:** 1.5g
 
-**Alternative Options:**
-- **MPU-6050** - 6-axis IMU (accelerometer + gyroscope)
-- **ADXL345** - 3-axis accelerometer (±16G)
-- **LSM6DS3** - 6-axis IMU with high accuracy
-- **BNO055** - 9-axis absolute orientation sensor
+**Key Features:**
+- High resolution 13-bit measurement
+- Selectable range for different applications
+- Ultra-low power consumption
+- Built-in 32-level FIFO buffer
+- Interrupt pins for activity detection
+- Level shifter for 3.3V/5V compatibility
+- Mounting holes for secure attachment
+
+**Why ADXL345:**
+✅ Industry-standard sensor with excellent documentation
+✅ Open-source, non-proprietary
+✅ Wide availability and low cost (~$15)
+✅ Proven reliability in robotics applications
+✅ Extensive Python library support
+✅ Perfect range (±8g) for camera platform
 
 ---
 
@@ -91,18 +108,26 @@ Servo Battery Pack (6V LiPo/NiMH)
 
 **Pin Connections:**
 ```
-G-Force Sensor → Raspberry Pi 5
-─────────────────────────────────
-VCC (3.3V)     → Pin 1 (3.3V)
-GND            → Pin 6 (GND)
-SDA            → Pin 3 (GPIO 2 - I2C SDA)
-SCL            → Pin 5 (GPIO 3 - I2C SCL)
+ADXL345 Breakout → Raspberry Pi 5
+─────────────────────────────────────
+VCC (3.3V)        → Pin 1  (3.3V Power)
+GND               → Pin 6  (Ground)
+SDA               → Pin 3  (GPIO 2 - I2C SDA)
+SCL               → Pin 5  (GPIO 3 - I2C SCL)
+SDO               → GND (for 0x53 address)
+CS                → 3.3V (for I2C mode)
+INT1              → Pin 11 (GPIO 17) [Optional]
+INT2              → Pin 13 (GPIO 27) [Optional]
 ```
 
 **I2C Bus Sharing:**
 - PWM Servo HAT: Address 0x40
-- G-Force Sensor: Address 0x53 (typical for ADXL345)
+- ADXL345 Sensor: Address 0x53 (SDO→GND) or 0x1D (SDO→3.3V)
 - Both devices can coexist on same I2C bus
+
+**Address Selection:**
+- Connect SDO to GND for address 0x53 (recommended)
+- Connect SDO to 3.3V for address 0x1D (if 0x53 conflicts)
 
 ### Mounting Location
 
@@ -594,16 +619,22 @@ def disable_stabilization():
 
 ### Additional Components Needed
 
-| Item | Quantity | Estimated Cost |
-|------|----------|----------------|
-| **G-Force Sensor** (ADXL345 or equivalent) | 1 | $15-30 |
-| **UPS Power Supply** (5V 10A) | 1 | $40-60 |
-| **Servo Battery Pack** (6V 20A LiPo/NiMH) | 1 | $30-50 |
-| **Battery Charger** | 1 | $20-30 |
-| **Power Cables & Connectors** | Set | $15-20 |
-| **Mounting Hardware** (for sensor) | 1 | $5-10 |
+| Item | Quantity | Estimated Cost | Link |
+|------|----------|----------------|------|
+| **Adafruit ADXL345** | 1 | $14.95 | [Adafruit #1231](https://www.adafruit.com/product/1231) |
+| **UPS Power Supply** (5V 10A) | 1 | $40-60 | Various |
+| **Servo Battery Pack** (6V 20A LiPo/NiMH) | 1 | $30-50 | Various |
+| **Battery Charger** | 1 | $20-30 | Various |
+| **Power Cables & Connectors** | Set | $15-20 | Various |
+| **Mounting Hardware** (M2.5 screws) | 1 | $5-10 | Various |
 
-**Total Additional Cost:** ~$125-200
+**Total Additional Cost:** ~$125-185
+
+**Where to Buy:**
+- **ADXL345:** Adafruit, SparkFun, Amazon, DigiKey
+- **UPS:** Amazon, Adafruit (PowerBoost series)
+- **Battery Pack:** HobbyKing, Amazon, local hobby stores
+- **Charger:** Matched to battery chemistry (LiPo/NiMH)
 
 ---
 
